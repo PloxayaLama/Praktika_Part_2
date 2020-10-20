@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/PloxayaLama/Praktika_Part_2#readme",
   "dependencies": {
+    "@vue/cli": "^4.5.8",
     "axios": "^0.20.0",
     "vue-axios": "^3.0.1",
     "vue.js": "^0.3.2",

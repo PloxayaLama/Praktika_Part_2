@@ -1,5 +1,15 @@
 <template>
 <div>
+    <input type="text" v-model="newname">Имя
+    <br>
+    <input type="text" v-model="newmark">Oценка
+    <br>
+    <input type="text" v-model="newgroup">Группа
+    <br>
+    <input type="checkbox" v-model="newisDonePr">Сдал/не сдал
+    <br>
+    <button @click="add">Add</button>
+    <br><br><br>
     <input type="text" v-model="piece">
             <table v-for="Student in students" v-bind:key="Student._id">    
                <tr v-bind:class="Student.name.includes(piece) ? '':'red'">
@@ -28,14 +38,17 @@ import VueAxios from 'vue-axios'
 //Vue.use(VueAxios, axios)
 
 export default{
-     data:{
-        students: [],
-        newmark:'',
-        newgroup:'',
-        newisDonePr:'',
-        newname:'',
-        search:'',
-        piece:''
+     data(){
+        return{
+            students: [],
+            newmark:'',
+            newgroup:'',
+            newisDonePr:'',
+            newname:'',
+            del_id:'',
+            search:'',
+            piece:''
+        }
     },
     mounted: function(){
         axios.get("http://46.101.212.195:3000/students").then((response) =>{
@@ -49,16 +62,23 @@ export default{
             this.students = this.students.filter((element) => {
                 return element.id != id;
             });
+        },
+        add: function(){
+            axios.post("http://46.101.212.195:3000/students", {
+                name:this.newname,
+                group:this.newgroup,
+                mark:this.newmark,
+                isDonePr: false
+            })
+            .then((response) => {
+                console.log(response.data)
+            })
+        },
+        del: function(){
+            axios.delete("http://46.101.212.195:3000/students/:_id")/*.then((response) => {
+                console.log(response.data)
+            })*/
         }
-    },
-    add:function(){
-        this.students.push({
-            'mark':this.newmark,
-            'name': this.newname,
-            'group': this.newgroup,
-            'isDonePr':this.newisDonePr,
-            '_id':this.students.length
-        })
     }
 }
 </script>
