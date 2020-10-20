@@ -4,56 +4,11 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Praktika</title>
-        <style>
-            .large{
-             width:100px;
-             height:100px;
-    
-            }
-            .fancyb{
-             width:486;
-             height:630px;
-    
-            }
-            .red{
-             color:red;
-            }
-            .black{
-             color:black;
-            }
-        </style>
     </head>
     <body>
       
         <div id="app">
-           <!-- <form>
-                <input type="text" v-model.trim="newmark"> Оценка<br>
-                <input type="text" v-model.trim="newgroup"> Группа<br>
-                <input type="text" v-model.trim="newname"> Имя<br>
-                <input type="checkbox" v-model="newisDonePr"> Сдал / Не сдал<br>
-                <button type="submit" v-on:click="add()">Добавить</button>
-                
-            </form>-->
-            <br><br><br>
-            <input type="text" v-model="piece">
-            <table v-for="Student in students">    
-               <tr v-bind:class="Student.name.includes(piece) ? '':'red'">
-                <td>{{Student.photo}}</td>
-                <td>{{Student.mark}}</td>
-                <td>{{Student.isDonePr}}</td>
-                <td>{{Student._id}} </td>
-                <td>{{Student.name}}</td>
-                <td>{{Student.group}}</td>
-                    <td><div v-if="Student.isDonePr==true">
-                        <input type="checkbox" disabled checked="Student.isDonePr">
-                    </div>
-                    <div v-else><input type="checkbox" disabled ></div> </td>
-                    <td><a href="#" v-on:click="del(Student._id)">Delete</a></td>
-                </tr> 
-                <br>
-            </table>
+           
         </div>
-
-        <script src="main.js"></script>
     </body>
 </html>
