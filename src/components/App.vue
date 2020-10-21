@@ -23,7 +23,7 @@
                         <input type="checkbox" disabled checked="Student.isDonePr">
                     </div>
                     <div v-else><input type="checkbox" disabled ></div> </td>
-                    <td><a href="#" v-on:click="del(Student._id)">Delete</a></td>
+                    <td><button v-on:click="removeStudent(Student._id)">Delete</button></td>
                 </tr> 
                 <br>
             </table>
@@ -45,7 +45,6 @@ export default{
             newgroup:'',
             newisDonePr:'',
             newname:'',
-            del_id:'',
             search:'',
             piece:''
         }
@@ -74,11 +73,20 @@ export default{
                 console.log(response.data)
             })
         },
-        del: function(){
-            axios.delete("http://46.101.212.195:3000/students/:_id")/*.then((response) => {
-                console.log(response.data)
-            })*/
-        }
+        getStudents: function(){
+            axios.get("http://46.101.212.195:3000/students").then((response) =>{
+            console.log(response.data);
+            this.students = response.data;
+        })
+        },
+        removeStudent : function(studId){ 
+            Vue.axios.delete("http://46.101.212.195:3000/students/"+studId, {}) 
+            .then((response)=>{ 
+                this.students=this.students.filter(element=>{ 
+                return element._id!==student;});
+            }) 
+              
+        },
     }
 }
 </script>
