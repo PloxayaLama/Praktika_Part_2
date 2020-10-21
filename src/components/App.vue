@@ -11,9 +11,15 @@
     <button @click="add">Add</button>
     <br><br><br>
     <input type="text" v-model="piece">
-            <table v-for="Student in students" v-bind:key="Student._id">    
-               <tr v-bind:class="Student.name.includes(piece) ? '':'red'">
-                <td>{{Student.photo}}</td>
+            <table v-for="Student in students" v-bind:key="Student._id">
+                <template v-if="Student._id==editId">
+                    <td><input v-model="Student.name" value="Student.name"></td>
+                    <td>{{Student.group}}</td>
+                    <td> <button v-on:click="update(editId)" value="update">Change</button></td>
+                </template> 
+                <template v-else>   
+                <tr v-bind:class="Student.name.includes(piece) ? '':'red'">
+                <td><img v-bind:src="Student.photo"></td>
                 <td>{{Student.mark}}</td>
                 <td>{{Student.isDonePr}}</td>
                 <td>{{Student._id}} </td>
@@ -24,9 +30,12 @@
                     </div>
                     <div v-else><input type="checkbox" disabled ></div> </td>
                     <td><button v-on:click="removeStudent(Student._id)">Delete</button></td>
+                    <td><button v-on:click="replaceForm(Student._id)">Изменить</button></td>
                 </tr> 
                 <br>
+                </template>
             </table>
+            
 </div>
 </template>
 <script>
@@ -46,7 +55,8 @@ export default{
             newisDonePr:'',
             newname:'',
             search:'',
-            piece:''
+            piece:'',
+            editId:''
         }
     },
     mounted: function(){
@@ -73,17 +83,29 @@ export default{
                 console.log(response.data)
             })
         },
-        getStudents: function(){
-            axios.get("http://46.101.212.195:3000/students").then((response) =>{
-            console.log(response.data);
-            this.students = response.data;
-        })
+        replaceForm: function(id){
+            this.editId=id;
+        },
+        update: function(id){
+            let foundStudent = this.students.find((element)=>{
+                return element._id == id;
+            });
+
+            axios.put("http://46.101.212.195:3000/students/"+id, {
+                name: foundStudent.name,
+                group: foundStudent.group,
+                isDonePr: false
+            })
+            .then((response) => {
+                console.log(response.data)
+            })
+            this.editId = 0;
         },
         removeStudent : function(studId){ 
-            Vue.axios.delete("http://46.101.212.195:3000/students/"+studId, {}) 
+            axios.delete("http://46.101.212.195:3000/students/"+studId, {}) 
             .then((response)=>{ 
                 this.students=this.students.filter(element=>{ 
-                return element._id!==student;});
+                return element._id!==studId;});
             }) 
               
         },
