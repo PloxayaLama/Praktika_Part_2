@@ -17,6 +17,8 @@
       <a>Enter emount</a>
       <input type='text' v-model="ent">
       <br>
+      <span>{{roundEnt}}</span>
+      <br>
       <button @click="calc">Calculate</button>
       <br>
       <a>Buy: {{BUY}}</a>
@@ -77,8 +79,13 @@ export default {
     calc:function(){
         this.BUY = this.ent * this.arr.buy;
         this.SALE = this.ent * this.arr.sale;
-    }
-  }
+    },
+  },
+  computed:{
+    roundEnt: function(){
+      return Math.round(this.ent * 100)/100
+    },
+  },
 }
 </script>
 
