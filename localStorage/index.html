@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>localStorage</title>
+</head>
+<body class="bg">
+    <div id='app' >
+        <h1>{{st}}</h1>
+        <template v-if="st == ''">
+            <link rel="stylesheet" href="./css/style1.css">
+            <button v-on:click="q">Переключить стиль</button>
+            
+        </template>
+        <template v-else>
+            <link rel="stylesheet" href="./css/style2.css">
+            <button v-on:click="qq">Переключить стиль</button>
+        </template>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      var app = new Vue({
+            el:'#app',
+            data:{
+                st: '',
+            },
+            mounted:function(){
+                let styleStorage = localStorage.getItem('stt');
+                if(styleStorage == ''){
+                    this.st = '';
+                }
+                else{
+                    this.st = 'true';
+                }
+            },
+            methods:{
+                q:function(){
+                   this.st = "true";
+                   if (this.st == 'true'){
+                   localStorage.setItem('stt','true') ;
+                }
+                },
+                qq:function(){
+                    this.st = "";
+                    if (this.st == ''){
+                    localStorage.setItem('stt','') ;
+                }
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>
