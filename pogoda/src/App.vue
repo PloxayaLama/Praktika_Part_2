@@ -1,78 +1,59 @@
 <template>
   <div id="app">
-    <!--<link rel="stylesheet" href="css/bootstrap.css" type="text/css">-->
-    <!--<img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
-    <div class="container-fluid bg-success">
-      <div class="row">
-        <div class="col-md">
-          <h1>jhdbvsjv</h1>
-        </div>
-        <div class="col-md bg-light">
-          <h1>jhdbvsjv</h1>
-        </div>
-        <div class="col-md">
-          <h1>jhdbvsjv</h1>
-        </div>
-      </div>
-    </div>
+    <h1>Nedo Sinoptic Ua</h1>
+    <input type="text" v-model="a">
+    <br><button @click="p">Додати місто</button>
+    <br><select name="sel" id="sel" v-model="b">
+      <option disabled value="">Выберіть пункт</option>
+      <option v-for="city in cities" :key="city">{{city}}</option>
+    </select>
+    <br>
+    <button @click="q">Погода</button>
+    <br>
+    <!--<table v-for="po in pog" :key="po">
+      <td>{{po.weather}}</td>
+    </table>-->
+    <a>{{pog}}</a>
   </div>
 </template>
 
 <script>
-//import HelloWorld from './components/HelloWorld.vue'
+
+import axios from 'axios'
 
 export default {
   name: 'App',
-  components: {
-    //HelloWorld
+  data() {
+    return{
+        a:'',
+        cities:[],
+        b:'',
+        pog:[],
+        API_KEY: '217565af7a4e04cc7287a346fa739cb8',
+    }
+  },
+  mounted:function(){
+    axios.get('api.openweathermap.org/data/2.5/weather?q=London&appid=217565af7a4e04cc7287a346fa739cb8')
+      .then((response) => {
+        console.log(response.data);
+        this.pog = response.data;
+      })
+  },
+  methods: {
+    p: function(){
+      this.cities.push(this.a);
+    },
   }
 }
 </script>
 
 <style>
-.bg-success {
-  background-color: #28a745 !important;
-}
-.container,
-.container-fluid,
-.container-sm,
-.container-md,
-.container-lg,
-.container-xl {
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-.text-left {
-  text-align: left !important;
-}
-.text-right {
-  text-align: right !important;
-}
-.text-center {
-  text-align: center !important;
-}
-.p-5 {
-  padding: 3rem !important;
-}
-.row {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
-}
-.col-md {
-  position: relative;
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-}
-.bg-light {
-  background-color: #f8f9fa !important;
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
 }
 </style>

@@ -63,7 +63,7 @@ data(){
         "modelName": "AddressGeneral",
         "calledMethod": "getWarehouses",
         "methodProperties": {
-            "SettlementRef": "e71629ab-4b33-11e4-ab6d-005056801329"
+            "CityRef": this.cRef
         },
         "apiKey": "9a557481f95094531372a9d1b55222c8"
       }).then((response) =>{
