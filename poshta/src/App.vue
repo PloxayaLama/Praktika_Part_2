@@ -1,18 +1,6 @@
 <template>
   <div id="app">
     <h1>Poshta</h1>
-    <!--<div>
-           <select @change="handleChange" v-model="ci">
-              <option  v-for="city in cities" v-bind:key="city.CityID" >{{ city.Description }}</option>
-           </select>
-           <br>
-           <span>{{ci.Description}}</span>
-    </div>-->
-
-
-
-
-
    <br>
    <a>Введіть місто</a>
    <br>
@@ -21,10 +9,15 @@
    <a>{{city}}</a>
    <br>
    <button @click="q">Search</button>
+   <br>
+   <a>{{cRef}}</a>
+   <br>
+   <button @click="otdel">Вітділи</button>
+   <br>
 
-   <!--<table v-for="el in cities" v-bind:key="el.CityID">
+   <table v-for="el in otd" v-bind:key="el.Description">
        <td>{{el.Description}}</td>
-   </table>-->
+   </table>
   </div>
 </template>
 
@@ -37,12 +30,10 @@ export default {
 data(){
     return {
       cities:[],
-      chw:'',
-      warehs:[],
-      f:false,
       ci:{},
       city:'',
-      id:''
+      otd:[],
+      cRef:'',
     }
   },
    mounted:function(){
@@ -59,17 +50,26 @@ data(){
     })
   },
   methods:{
-    /*handleChange(e) {
-      if(e.target.options.selectedIndex >= 0) {
-            alert(e.target.options[e.target.options.selectedIndex].dataset.foo)
-      }
-    },*/
     q:function(){
-      for (var i = 0; i < 5368/*this.cities.length*/; i++){
-        if (this.cities.Description[i] == this.city){
-          alert('URAAAAAAAA');
+      for (var i = 0; i < this.cities.length; i++){
+        if (this.cities[i].Description == this.city){
+          this.ci = this.cities[i];
+          this.cRef = this.ci.Ref;
         }
       }
+    },
+    otdel:function(){
+      axios.post("https://api.novaposhta.ua/v2.0/json/",{
+        "modelName": "AddressGeneral",
+        "calledMethod": "getWarehouses",
+        "methodProperties": {
+            "SettlementRef": "e71629ab-4b33-11e4-ab6d-005056801329"
+        },
+        "apiKey": "9a557481f95094531372a9d1b55222c8"
+      }).then((response) =>{
+        console.log(response.data.data);
+        this.otd = response.data.data;
+      })
     }
   }
 }
