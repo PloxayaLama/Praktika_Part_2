@@ -24,13 +24,6 @@
       <a>Buy: {{BUY}}</a>
       <br>
       <a>Sale: {{SALE}}</a>
-
-
-   <h1>Poshta</h1>
-   <!--<table v-for="el in array1" v-bind:key="el">
-     <td>el.data</td>
-   </table>-->
-
    
   </div>
 </template>
@@ -46,28 +39,17 @@ export default {
   data(){
     return {
       array: [],
-      array1: [],
       arr:[],
       kName: '',
       ent:'',
       BUY:'',
-      SALE:''
+      SALE:'',
     }
-  },
-  components: {
-    //Poshta
   },
   mounted:function(){
     axios.get("https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5").then((response) =>{
             console.log(response.data);
             this.array = response.data;
-    })
-  },
-  mounted1:function(){
-    axios.get("https://api.novaposhta.ua/v2.0/json/").then((response) =>{
-      
-            console.log(response.data);
-            this.array1 = response.data;
     })
   },
   methods:{
