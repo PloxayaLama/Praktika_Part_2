@@ -1,6 +1,14 @@
 <template>
 <div>
     <router-view></router-view>
+    <div v-bind:class="changeStyle==''?'bg1':'bg2'">
+        <input type="radio" value='true' v-model="changeStyle" @click="send()">
+        <br>
+        <input type="radio" value='' v-model="changeStyle" @click="send()">
+        <br>
+        <a>Зміна стилю</a>
+        <br><br><br>
+    
     <input type="text" v-model="newname">Имя
     <br>
     <input type="text" v-model="newmark">Oценка
@@ -36,7 +44,8 @@
                 <br>
                 </template>
             </table>
-            
+   <a>{{studentsCount}}</a> 
+   </div>        
 </div>
 </template>
 <script>
@@ -44,6 +53,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import Vuex from 'vuex'
 
 //Vue.use(VueAxios, axios)
 
@@ -57,7 +67,8 @@ export default{
             newname:'',
             search:'',
             piece:'',
-            editId:''
+            editId:'',
+            changeStyle: ''
         }
     },
     mounted: function(){
@@ -110,24 +121,22 @@ export default{
             }) 
               
         },
+        send:function(){
+            this.$store.commit('bg',this.changeStyle);
+        }
+    },
+    computed: {
+        studentsCount () {
+            let i=0;
+            for (i=0;i<this.students.length;i++){};
+            this.$store.commit('setCount',i);
+                return this.$store.getters.getCount;
+                this.changeStyle=this.$store.getters.getback;
+        }
     }
+
 }
 </script>
 <style scoped>
-    .large{
-             width:100px;
-             height:100px;
     
-            }
-            .fancyb{
-             width:486;
-             height:630px;
-    
-            }
-            .red{
-             color:red;
-            }
-            .black{
-             color:black;
-            }
 </style>

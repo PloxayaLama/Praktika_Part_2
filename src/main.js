@@ -3,9 +3,12 @@ import App from './components/App.vue'
 import VueRouter from 'vue-router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import store from './store.js'
 
 import Students from './components/Students.vue'
 import studentInfo from './components/studentInfo.vue'
+
+import Vuex from 'vuex';
 
 
 
@@ -19,9 +22,11 @@ const router = new VueRouter({
 })
 
 Vue.use(VueRouter, VueAxios, axios)
+Vue.use(Vuex)
 
 new Vue({
    render: h => h(App),
    el: '#app',
-   router
+   router,
+   store
 })
