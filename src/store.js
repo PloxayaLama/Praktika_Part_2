@@ -25,7 +25,7 @@ const store= new Vuex.Store({
             return(state.color)
         },
         getUser: (state) => {
-            return state.suer
+            return state.user
         }
     }
 })
