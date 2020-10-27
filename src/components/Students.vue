@@ -40,6 +40,7 @@
                     <div v-else><input type="checkbox" disabled ></div> </td>
                     <td><button v-on:click="removeStudent(Student._id)">Delete</button></td>
                     <td><button v-on:click="replaceForm(Student._id)">Изменить</button></td>
+                    <td><a href="#" @click.prevent="removeStudent(Student._id)" v-show="Student.group==getCurrentUser.group">Видалити (День 6)</a></td>
                 </tr> 
                 <br>
                 </template>
@@ -132,6 +133,12 @@ export default{
             this.$store.commit('setCount',i);
                 return this.$store.getters.getCount;
                 this.changeStyle=this.$store.getters.getback;
+        },
+        getCount(){
+            return this.$store.getters.getCount
+        },
+        getCurrentUser(){
+            return this.$store.getters.getUser
         }
     }
 

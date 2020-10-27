@@ -9,19 +9,23 @@ const store= new Vuex.Store({
     plugins: [createPersistedState()],
     state: {
         count:0,
-        color:''
+        color:'',
+        user: null
     },
     mutations: {
-        setCount:(state,c)=>state.count=c,
-        bg:(state,style)=>state.color=style,
+        setCount:(state,c)=>state.count = c,
+        bg:(state,style)=>state.color = style,
+        setUser:(state, user)=>state.user = user,
     },
     getters: {
-        getCount:(state)=>
-        {
-            return ('Кількісь студентів = '+state.count)
+        getCount: (state) => {
+            return ('Студентів: '+state.count)
         },
-        getback:(state)=>{
+        getback: (state) => {
             return(state.color)
+        },
+        getUser: (state) => {
+            return state.suer
         }
     }
 })
