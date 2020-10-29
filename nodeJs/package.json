@@ -8,12 +8,15 @@
     "start2": "nodemon os.js",
     "start3": "nodemon fs.js",
     "start4": "nodemon Nedo_server.js",
+    "start-production": "node Nedo_server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.11",
     "nodemon": "^2.0.6"
   }
 }

@@ -1,4 +1,4 @@
-const http = require('http');
+/*const http = require('http');
 
 const server = http.createServer((req, res) => {
     
@@ -25,4 +25,17 @@ const server = http.createServer((req, res) => {
 
 server.listen(3228, () => {
     console.log("server runing...");
-})
+})*/
+
+const routes = require('./routes');
+
+const express = require('express'),
+    app = express(),
+    mongoose = require('mongoose'),
+    User = require('./models/UserModel'),
+    port = process.env.PORT || 3228
+    
+mongoose.connect('mongodb://localhost/user_db');
+
+routes(app);
+app.listen(port);
