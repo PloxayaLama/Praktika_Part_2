@@ -33,9 +33,9 @@ const express = require('express'),
     app = express(),
     mongoose = require('mongoose'),
     User = require('./models/UserModel'),
-    port = process.env.PORT || 3228
+    port = process.env.PORT || 3000
     
-mongoose.connect('mongodb://localhost/user_db');
+mongoose.connect('mongodb://localhost/users_db');
 
 routes(app);
 app.listen(port);
